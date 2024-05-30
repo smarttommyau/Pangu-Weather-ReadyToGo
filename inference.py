@@ -35,9 +35,14 @@ os.makedirs(temp_dir,exist_ok=True)
 ## copy forecast files to temp dir
 
 model_24 = 'models/pangu_weather_24.onnx' # 24h
+# model_24 = None # ncomment to disable 24h
 model_6 = 'models/pangu_weather_6.onnx' # 6h
+# model_6 = None # uncomment to disable 6h
 model_3 = 'models/pangu_weather_3.onnx' # 3h
+# model_3 = None # uncomment to disable 3h
 model_1 = 'models/pangu_weather_1.onnx' # 1h
+# model 1h cannot be disable
+
 
 
 
@@ -58,17 +63,17 @@ jump = False
 while time_difference_in_hour >= 1:
     print(time_difference_in_hour)
     last_model = model_used
-    if time_difference_in_hour >= 24:
+    if time_difference_in_hour >= 24 and model_24 is not None:
         model_used = model_24
         time_difference_in_hour -= 24
         current_date_time += timedelta(hours=24)
         print("24")
-    elif time_difference_in_hour >= 6:
+    elif time_difference_in_hour >= 6 and model_6 is not None:
         model_used = model_6
         time_difference_in_hour -= 6
         current_date_time += timedelta(hours=6)
         print("6")
-    elif time_difference_in_hour >= 3:
+    elif time_difference_in_hour >= 3 and model_3 is not None:
         model_used = model_3
         time_difference_in_hour -= 3
         current_date_time += timedelta(hours=3)
